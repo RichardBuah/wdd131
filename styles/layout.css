@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Times New Roman', Times, serif;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    font-size: 1.5rem;
+}
+.parent {
+    display: grid;
+    grid-template: 2fr 1fr 4fr 3fr / 1fr 1fr 1fr 1fr;
+}
+.parent header, footer {
+    padding: 2rem;
+    grid-column: 1/5;
+    background-color: rgb(118, 118, 123);
+    display: grid;
+    justify-items: center;
+}
+.parent nav {
+    grid-column: 1/5;
+    background-color: blanchedalmond;
+    display: grid;
+    justify-items: center;
+}
+.home {
+    grid-column: 1/2;
+}
+.proj {
+    grid-column: 2/3;
+}
+.serv {
+    grid-column: 3/4;
+}
+.con {
+    grid-column: 4/5;
+}
+.parent main {
+    padding: 2rem;
+    grid-column: 1/4;
+    background-color: burlywood;
+}
+.parent aside {
+    padding: 2rem;
+    grid-column: 4/5;
+    background-color: cornsilk;
+}
