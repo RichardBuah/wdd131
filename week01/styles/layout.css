@@ -10,42 +10,47 @@ body {
     margin: 0 auto;
     font-size: 1.5rem;
 }
-.parent {
+.container {
     display: grid;
     grid-template: 2fr 1fr 4fr 3fr / 1fr 1fr 1fr 1fr;
 }
-.parent header, footer {
+.container header {
     padding: 2rem;
     grid-column: 1/5;
+    grid-row: 1/2;
     background-color: rgb(118, 118, 123);
     display: grid;
     justify-items: center;
 }
-.parent nav {
+.container nav {
+    grid-row: 2/3;
     grid-column: 1/5;
     background-color: blanchedalmond;
-    display: grid;
-    justify-items: center;
 }
-.home {
-    grid-column: 1/2;
-}
-.proj {
-    grid-column: 2/3;
-}
-.serv {
-    grid-column: 3/4;
-}
-.con {
-    grid-column: 4/5;
-}
-.parent main {
+.container main {
+    grid-row: 3/4;
     padding: 2rem;
     grid-column: 1/4;
     background-color: burlywood;
 }
-.parent aside {
+.container aside {
+    grid-row: 3/4;
     padding: 2rem;
     grid-column: 4/5;
     background-color: cornsilk;
+}
+.container footer {
+    padding: 2rem;
+    grid-column: 1/5;
+    grid-row: 4/5;
+    background-color: rgb(118, 118, 123);
+}
+.navi {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.navi a {
+    text-decoration: none;
+    color: black;
 }
