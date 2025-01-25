@@ -65,12 +65,6 @@ main {
     justify-content: space-between;
 }
 
-.card img {
-    max-width: 250px;
-    height: 200px;
-    border-radius: 8px;
-}
-
 .card ul {
     list-style: none;
     padding: 0;
@@ -80,6 +74,19 @@ main {
     text-decoration: none;
     color: #003366;
     font-weight: bold;
+}
+
+#imgs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#imgs img {
+    max-width: 250px;
+    height: auto;
+    border-radius: 8px;
 }
 
 .card div {
