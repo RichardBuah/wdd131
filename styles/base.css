@@ -42,7 +42,7 @@ main {
     max-width: 1100px;
     margin: 2rem auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr;
     gap: 2rem;
 }
 
@@ -66,8 +66,8 @@ main {
 }
 
 .card img {
-    max-width: 200px;
-    height: auto;
+    max-width: 250px;
+    height: 200px;
     border-radius: 8px;
 }
 
@@ -80,6 +80,11 @@ main {
     text-decoration: none;
     color: #003366;
     font-weight: bold;
+}
+
+.card div {
+    display: flex;
+    justify-content: space-between;
 }
 
 footer {
