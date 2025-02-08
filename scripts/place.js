@@ -9,10 +9,10 @@ function calculateWindChill(tempC, windSpeedKm) {
 }
 const temperature = 28; // °C
 const windSpeed = 10;   // km/h
+const windChillElement = document.getElementById('windchill');
 if (temperature <= 10 && windSpeed > 4.8) {
-    const windChill = calculateWindChill(temperature, windSpeed).toFixed(1);
-    windChillFactor.textContent = `Wind Chill: ${windChill} °C`;
+    const windChillFactor = calculateWindChill(temperature, windSpeed).toFixed(1);
+    windChillElement.textContent = `Wind Chill: ${windChillFactor} °C`;
 } else {
-    windChillFactor.textContent = 'Wind Chill: N/A';
-}
-document.querySelector('.weather').appendChild(windChillFactor);
+    windChillElement.textContent = 'Wind Chill: N/A';
+} 

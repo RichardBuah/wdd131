@@ -85,15 +85,29 @@ h2 {
     text-align: center;
 }
 
-/* Pseudo-element for weather icon */
-h2.weather-heading::after {
-    content: '\2601'; 
-    margin-left: 10px;
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 8px;
+/* Pseudo-element for weather icon (Large View Only) */
+@media screen and (min-width: 740px) {
+    h2.weather-heading::after {
+        content: '\2601'; /* Unicode for cloud emoji */
+        margin-left: 10px;
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+/* Weather Icon (Mobile View Only) */
+@media screen and (max-width: 739px) {
+    .weather img.weather-icon {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto 10px;
+    }
+    h2.weather-heading::after {
+        content: none;
+    }
 }
 
 ul {
@@ -114,10 +128,13 @@ footer {
     color: white;
     margin-top: 0;
     font-size: 0.9rem;
-}
+} 
 
 /* Media Query for Large Screens */
 @media screen and (min-width: 740px) {
+    .weather .weather-icon {
+        display: none;
+    }
     .image-container {
         width: 100vw;
         height: 85vh;
