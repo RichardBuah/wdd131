@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDD 131 - Dynamic Web Fundamentals - Richard Buah</title>
+    <meta name="description" content="WDD 131 - Dynamic Web Fundamentals | Richard Buah | This is a dynamic website.">
+    <meta name="Author" content="Richard Buah">
+    <link rel="stylesheet" href="styles/place.css">
+    <script src="scripts/place.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Cape Coast</h1>
+    </header>
+
+    <main>
+        <section class="image-container">
+            <picture>
+                <source srcset="images/capecoast1.png" media="(min-width: 740px)">
+                <img src="images/capecoast2.png" alt="Cape Coast">
+            </picture>
+            <div class="overlay-box data">
+                <h2>Data</h2>
+                <ul>
+                    <li>Population: 169,894</li>
+                    <li>Founded: 1482</li>
+                    <li>Region: Central Region</li>
+                </ul>
+            </div>
+            <div class="overlay-box weather">
+                <h2 class="weather-heading">Weather</h2>
+                <ul>
+                    <li>Temperature: 28°C</li>
+                    <li>Condition: Sunny</li>
+                    <li>Humidity: 75%</li>
+                    <li id="windchill">Wind Chill: N/A</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="currentyear"></span> Richard Buah | Cape Coast</p>
+        <p class="lastModified"></p>
+    </footer>
+</body>
+</html>
