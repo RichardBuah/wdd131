@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #fcd116; 
+    --primary-color: #007a33;
     --secondary-color: #ef3340; 
-    --accent-color: #007a33; 
+    --accent-color: #fcd116; 
     --text-color: #ffffff;
     --background-color: #ffffff;
     --overlay-background: rgba(255, 255, 255, 0.8);
@@ -50,12 +50,12 @@ header::after {
 
 .image-container {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .image-container img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
 }
 
@@ -124,7 +124,7 @@ footer {
     }
     .data {
         position: absolute;
-        top: 5%;
+        top: 25%;
         left: 5%;
         width: 350px;
         padding: 20px;
