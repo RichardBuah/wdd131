@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     initializeRestaurants();
     getUserLocation();
+    setupAutocomplete();
 });
 
 function initializeRestaurants() {
@@ -18,34 +19,53 @@ function saveRestaurants(restaurants) {
     localStorage.setItem("restaurants", JSON.stringify(restaurants));
 }
 
+function setupAutocomplete() {
+    const addressInput = document.getElementById("restaurantAddress");
+    addressInput.addEventListener("input", function () {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${addressInput.value}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    let suggestionList = document.getElementById("addressSuggestions");
+                    suggestionList.innerHTML = "";
+                    data.slice(0, 5).forEach(location => {
+                        let option = document.createElement("div");
+                        option.classList.add("suggestion");
+                        option.innerText = location.display_name;
+                        option.onclick = function () {
+                            addressInput.value = location.display_name;
+                            addressInput.dataset.lat = location.lat;
+                            addressInput.dataset.lon = location.lon;
+                            suggestionList.innerHTML = "";
+                        };
+                        suggestionList.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching location: ", error));
+    });
+}
+
 function handleAddRestaurant() {
     const name = document.getElementById("restaurantName").value;
     const category = document.getElementById("restaurantCategory").value;
     const hours = document.getElementById("restaurantHours").value;
-    const postalCode = document.getElementById("postalCode").value;
+    const addressInput = document.getElementById("restaurantAddress");
+    const address = addressInput.value;
+    const lat = addressInput.dataset.lat;
+    const lon = addressInput.dataset.lon;
     
-    if (!name || !category || !hours || !postalCode) {
-        alert("Please fill in all fields.");
+    if (!name || !category || !hours || !address || !lat || !lon) {
+        alert("Please fill in all fields and select a valid address.");
         return;
     }
     
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${postalCode}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                const lat = data[0].lat;
-                const lng = data[0].lon;
-                const newRestaurant = { name, category, hours, lat, lng, rating: 0 };
-                let restaurants = getRestaurants();
-                restaurants.push(newRestaurant);
-                saveRestaurants(restaurants);
-                displayRestaurants(restaurants);
-                alert("Restaurant added successfully!");
-            } else {
-                alert("Invalid postal code, could not retrieve location.");
-            }
-        })
-        .catch(error => console.error("Error fetching location: ", error));
+    const newRestaurant = { name, category, hours, address, lat, lon, rating: 0 };
+    let restaurants = getRestaurants();
+    restaurants.push(newRestaurant);
+    saveRestaurants(restaurants);
+    displayRestaurants(restaurants);
+    alert("Restaurant added successfully!");
 }
 
 function filterRestaurants() {
@@ -54,7 +74,8 @@ function filterRestaurants() {
     let restaurants = getRestaurants().filter(restaurant => {
         let matchesCategory = category === "all" || restaurant.category.toLowerCase() === category.toLowerCase();
         let matchesSearch = restaurant.name.toLowerCase().includes(searchQuery) ||
-                            restaurant.category.toLowerCase().includes(searchQuery);
+                            restaurant.category.toLowerCase().includes(searchQuery) ||
+                            restaurant.address.toLowerCase().includes(searchQuery);
         return matchesCategory && matchesSearch;
     });
     displayRestaurants(restaurants);
@@ -73,7 +94,7 @@ function displayRestaurants(filteredList) {
         div.innerHTML = `<h2>${restaurant.name}</h2>
                          <p>Category: ${restaurant.category}</p>
                          <p>Hours: ${restaurant.hours}</p>
-                         <p>Distance: ${restaurant.distance || "Calculating..."} km</p>
+                         <p>Address: ${restaurant.address}</p>
                          <p class="rating">⭐ ${restaurant.rating}</p>
                          <button onclick="toggleFavorite('${restaurant.name}')">${isFavorite(restaurant.name) ? "❤️ Unfavorite" : "🤍 Favorite"}</button>`;
         list.appendChild(div);
