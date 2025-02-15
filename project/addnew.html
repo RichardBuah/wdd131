@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Restaurant</title>
+    <link rel="stylesheet" href="siteplan.css">
+</head>
+<body>
+    <header>
+        <div class="logo">🍽️ Food Joint Finder</div>
+        <nav>
+            <ul>
+                <li><a href="siteplan.html">Home</a></li>
+                <li><a href="addnew.html">Add Restaurant</a></li>
+                <li><a href="favs.html">Favorites</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="add-restaurant-form">
+            <h2>Enter Restaurant Details</h2>
+            <input type="text" id="restaurantName" placeholder="Restaurant Name">
+            <select id="restaurantCategory">
+                <option value="fast food">Fast Food</option>
+                <option value="italian">Italian</option>
+                <option value="asian">Asian</option>
+            </select>
+            <input type="text" id="restaurantHours" placeholder="Opening Hours (e.g. 9 AM - 10 PM)">
+            <input type="text" id="postalCode" placeholder="Enter Postal Code">
+            <button onclick="handleAddRestaurant()">Add Restaurant</button>
+        </section>
+    </main>
+    <script src="siteplan.js"></script>
+</body>
+</html>

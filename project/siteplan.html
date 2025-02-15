@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Joint Finder</title>
+    <link rel="stylesheet" href="siteplan.css">
+</head>
+<body>
+    <header>
+        <div class="logo">🍽️ Food Joint Finder</div>
+        <nav>
+            <ul>
+                <li><a href="siteplan.html">Home</a></li>
+                <li><a href="addnew.html">Add Restaurant</a></li>
+                <li><a href="favs.html">Favorites</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <h1>Discover the Best Food Joints Around You</h1>
+        <p>Find restaurants, rate them, and add your favorites.</p>
+    </section>
+    <div class="search-filter">
+        <input type="text" id="searchBar" placeholder="🔍 Search restaurants..." onkeyup="filterRestaurants()">
+        <select id="categoryFilter" onchange="filterRestaurants()">
+            <option value="all">All Categories</option>
+            <option value="fast food">Fast Food</option>
+            <option value="italian">Italian</option>
+            <option value="asian">Asian</option>
+        </select>
+    </div>
+    <main>
+        <section id="restaurant-list">
+            <!-- Restaurants will be dynamically inserted here -->
+        </section>
+    </main>
+    <script src="siteplan.js"></script>
+</body>
+</html>
