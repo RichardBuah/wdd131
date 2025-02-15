@@ -21,13 +21,19 @@ function saveRestaurants(restaurants) {
 
 function setupAutocomplete() {
     const addressInput = document.getElementById("restaurantAddress");
+    const suggestionList = document.getElementById("addressSuggestions");
+
     addressInput.addEventListener("input", function () {
+        if (addressInput.value.length < 3) {
+            suggestionList.innerHTML = "";
+            return;
+        }
+
         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${addressInput.value}`)
             .then(response => response.json())
             .then(data => {
+                suggestionList.innerHTML = "";
                 if (data.length > 0) {
-                    let suggestionList = document.getElementById("addressSuggestions");
-                    suggestionList.innerHTML = "";
                     data.slice(0, 5).forEach(location => {
                         let option = document.createElement("div");
                         option.classList.add("suggestion");
