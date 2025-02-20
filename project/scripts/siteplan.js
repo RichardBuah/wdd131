@@ -4,12 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAutocomplete();
 
     setTimeout(() => {
-        displayRestaurants(getRestaurants());
+        let restaurants = getRestaurants();
+        if (!restaurants || restaurants.length === 0) {
+            console.error("Restaurants not loaded correctly.");
+        } else {
+            displayRestaurants(restaurants);
+        }
+
         if (window.location.pathname.includes("favs.html")) {
             loadFavorites(); 
         }
-    }, 500);
+    }, 500); 
 });
+
 
 const defaultRestaurants = [
     { name: "McDonald's", category: "fast food", hours: "6 AM - 12 AM", lat: 40.73061, lng: -73.935242, rating: 4.5 },
@@ -45,11 +52,18 @@ const defaultRestaurants = [
 ];
 
 function initializeRestaurants() {
-    let storedRestaurants = JSON.parse(localStorage.getItem("restaurants"));
-    if (!storedRestaurants || storedRestaurants.length === 0) {
+    let storedRestaurants = localStorage.getItem("restaurants");
+
+    if (!storedRestaurants) {
+        localStorage.setItem("restaurants", JSON.stringify(defaultRestaurants));
+    }
+    let restaurants = JSON.parse(localStorage.getItem("restaurants"));
+    if (!Array.isArray(restaurants) || restaurants.length === 0) {
+        console.warn("No valid restaurant data found. Resetting to default.");
         localStorage.setItem("restaurants", JSON.stringify(defaultRestaurants));
     }
 }
+
 
 function getRestaurants() {
     let restaurants = JSON.parse(localStorage.getItem("restaurants"));
