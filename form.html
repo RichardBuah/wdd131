@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDD 131 - Dynamic Web Fundamentals - Richard Buah</title>
+    <meta name="description" content="WDD 131 - Dynamic Web Fundamentals | Richard Buah | This is a dynamic website.">
+    <meta name="Author" content="Richard Buah">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/form.css">
+    <script src="scripts/form.js" defer></script>
+    <title>Product Review Form</title>
+</head> 
+<body>
+    <header>
+        <h2>Product Review</h2>
+    </header>
+
+    <main>
+        <form id="reviewForm" method="get" action="review.html">
+            <!-- Product Name -->
+            <label for="product">Product Name</label>
+            <select id="product" name="product" required>
+                <option value="" disabled selected>Choose a Product ...</option>
+            </select>
+
+            <!-- Overall Rating -->
+            <fieldset>
+                <legend>Overall Rating</legend>
+                <div class="rating">
+                    <input type="radio" id="star1" name="rating" value="1" required>
+                    <label for="star1">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">&#9733;&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">&#9733;&#9733;&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">&#9733;&#9733;&#9733;&#9733;</label>
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5">&#9733;&#9733;&#9733;&#9733;&#9733;</label>
+                </div>
+            </fieldset>
+
+            <!-- Date of Installation -->
+            <label for="date">Date of Installation</label>
+            <input type="date" id="date" name="date" required>
+
+            <!-- Useful Features -->
+            <fieldset>
+                <legend>Which features did you find useful in the product?  <span>(Check all that apply)</span></legend>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="features" value="Durability"> Durability</label>
+                    <label><input type="checkbox" name="features" value="Ease of Use"> Ease of Use</label>
+                    <label><input type="checkbox" name="features" value="Performance"> Performance</label>
+                    <label><input type="checkbox" name="features" value="Design"> Design</label>
+                </div>
+            </fieldset>
+
+            <!-- Written Review -->
+            <label for="review">Written Review (Optional)</label>
+            <textarea id="review" name="review"></textarea>
+
+            <!-- User Name -->
+            <label for="username">Your Name (Optional)</label>
+            <input type="text" id="username" name="username">
+
+            <!-- Submit Button -->
+            <button type="submit">Post Review</button>
+        </form>
+    </main>
+
+    <footer>
+        &copy;2024 🌸 Rubia Magdelena Francesco 🌸<br>
+        Madagascar<br>
+        Last Modification: 02/26/2024 13:56:10
+    </footer>
+</body>
+</html>
