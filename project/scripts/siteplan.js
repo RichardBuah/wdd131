@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     initializeRestaurants();
     getUserLocation();
-    setupAutocomplete();
-
     setTimeout(() => {
         let restaurants = getRestaurants();
         if (!restaurants || restaurants.length === 0) {
@@ -86,8 +84,6 @@ function displayRestaurants(filteredList) {
 
     filteredList.forEach(restaurant => {
         let distanceText = "Location Unknown";
-
-        // If user location is available, calculate distance
         if (userLocation) {
             let distance = getDistanceFromLatLonInKm(
                 userLocation.lat,
@@ -118,41 +114,6 @@ function saveRestaurants(restaurants) {
 function isFavorite(name) {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     return favorites.includes(name);
-}
-
-function setupAutocomplete() {
-    const addressInput = document.getElementById("restaurantAddress");
-    if (!addressInput) return;
-
-    const suggestionList = document.getElementById("addressSuggestions");
-
-    addressInput.addEventListener("input", function () {
-        if (addressInput.value.length < 3) {
-            suggestionList.innerHTML = "";
-            return;
-        }
-
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${addressInput.value}`)
-            .then(response => response.json())
-            .then(data => {
-                suggestionList.innerHTML = "";
-                if (data.length > 0) {
-                    data.slice(0, 5).forEach(location => {
-                        let option = document.createElement("div");
-                        option.classList.add("suggestion");
-                        option.innerText = location.display_name;
-                        option.onclick = function () {
-                            addressInput.value = location.display_name;
-                            addressInput.dataset.lat = location.lat;
-                            addressInput.dataset.lon = location.lon;
-                            suggestionList.innerHTML = "";
-                        };
-                        suggestionList.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => console.error("Error fetching location: ", error));
-    });
 }
 
 function handleAddRestaurant() {
