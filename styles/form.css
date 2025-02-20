@@ -65,13 +65,24 @@ legend {
     font-size: 14px;
 }
 
-/* Rating Styling */
 .rating {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: white;
 }
+
+.rating label {
+    font-size: 24px;
+    cursor: pointer;
+    color: white; 
+    transition: color 0.3s;
+}
+
+.rating label {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
 
 input[type="radio"] {
     display: none;
