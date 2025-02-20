@@ -60,19 +60,37 @@ function displayRestaurants(filteredList) {
     const list = document.getElementById("restaurant-list");
     if (!list) return;
 
+    // Get user location from localStorage
+    let userLocation = JSON.parse(localStorage.getItem("userLocation"));
+
     list.innerHTML = "";
+    
     if (filteredList.length === 0) {
         list.innerHTML = "<p style='text-align: center;'>No restaurants found.</p>";
         return;
     }
 
     filteredList.forEach(restaurant => {
+        let distanceText = "Location Unknown";
+
+        // If user location is available, calculate distance
+        if (userLocation) {
+            let distance = getDistanceFromLatLonInKm(
+                userLocation.lat,
+                userLocation.lon,
+                restaurant.lat,
+                restaurant.lng
+            );
+            distanceText = `${distance.toFixed(2)} km away`;
+        }
+
         const div = document.createElement("div");
         div.classList.add("restaurant-card");
         div.innerHTML = `<h2>${restaurant.name}</h2>
                          <p>Category: ${restaurant.category}</p>
                          <p>Hours: ${restaurant.hours}</p>
                          <p>Address: ${restaurant.address ? restaurant.address : 'Not Available'}</p>
+                         <p class="distance">${distanceText}</p>
                          <p class="rating">⭐ ${restaurant.rating}</p>
                          <button onclick="toggleFavorite('${restaurant.name}')">${isFavorite(restaurant.name) ? "❤️ Unfavorite" : "🤍 Favorite"}</button>`;
         list.appendChild(div);
@@ -162,7 +180,12 @@ function getUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log("User's Location:", position.coords.latitude, position.coords.longitude);
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+                
+                localStorage.setItem("userLocation", JSON.stringify({ lat: userLat, lon: userLon }));
+
+                console.log("User's Location:", userLat, userLon);
             },
             (error) => {
                 console.warn("Error getting location:", error);
@@ -172,6 +195,7 @@ function getUserLocation() {
         console.warn("Geolocation is not supported by this browser.");
     }
 }
+
 
 function filterRestaurants() {
     let searchQuery = document.getElementById("searchBar").value.toLowerCase().trim();
@@ -223,8 +247,15 @@ function toggleFavorite(name) {
         favorites.push(name);
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    displayRestaurants(getRestaurants());
+
+    // Refresh page content
+    if (window.location.pathname.includes("favs.html")) {
+        loadFavorites(); 
+    } else {
+        displayRestaurants(getRestaurants()); 
+    }
 }
+
 
 function loadFavorites() {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -240,6 +271,8 @@ function loadFavorites() {
         favoritesList.innerHTML = "<p style='text-align: center;'>No favorite restaurants yet.</p>";
         return;
     }
+
+    // Display favorite restaurants
     favoriteRestaurants.forEach(restaurant => {
         const div = document.createElement("div");
         div.classList.add("restaurant-card");
@@ -248,8 +281,27 @@ function loadFavorites() {
                          <p>Hours: ${restaurant.hours}</p>
                          <p>Address: ${restaurant.address ? restaurant.address : 'Not Available'}</p>
                          <p class="rating">⭐ ${restaurant.rating}</p>
-                         <button onclick="toggleFavorite('${restaurant.name}')">❤️ Remove</button>`;
+                         <button onclick="toggleFavorite('${restaurant.name}')">❌ Remove</button>`;
         favoritesList.appendChild(div);
     });
+}
+
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    if (!lat1 || !lon1 || !lat2 || !lon2) return null;
+
+    const R = 6371; // Radius of the Earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
 }
 
