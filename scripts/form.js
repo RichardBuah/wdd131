@@ -20,3 +20,8 @@ document.getElementById("reviewForm").addEventListener("submit", function() {
     let count = localStorage.getItem("reviewCount") || 0;
     localStorage.setItem("reviewCount", parseInt(count) + 1);
 });
+
+const currentYear = new Date().getFullYear();
+document.getElementById('currentyear').textContent = currentYear;
+const lastModified = document.lastModified;
+document.querySelector('.lastModified').textContent = `Last Modified: ${lastModified}`;
