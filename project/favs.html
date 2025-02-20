@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorite Restaurants</title>
-    <link rel="stylesheet" href="siteplan.css">
+    <link rel="stylesheet" href="styles/siteplan.css">
 </head>
 <body>
     <header>
         <div class="logo">🍽️ Favorite Restaurants</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul>
                 <li><a href="siteplan.html">Home</a></li>
@@ -17,12 +18,15 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <section class="hero">
         <h1>Your Favorite Restaurants</h1>
+        <p>Here are the restaurants you have marked as favorites.</p>
+    </section>
+    <main>
         <section id="favorites-list">
             <!-- Favorite restaurants will be dynamically inserted here -->
         </section>
     </main>
-    <script src="siteplan.js"></script>
+    <script src="scripts/siteplan.js"></script>
 </body>
 </html>

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Restaurant</title>
-    <link rel="stylesheet" href="siteplan.css">
+    <link rel="stylesheet" href="styles/siteplan.css">
 </head>
 <body>
     <header>
         <div class="logo">🍽️ Food Joint Finder</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul>
                 <li><a href="siteplan.html">Home</a></li>
@@ -17,6 +18,10 @@
             </ul>
         </nav>
     </header>
+    <section class="hero">
+        <h1>Submit Your Favorite Food Places</h1>
+        <p>Share your favorite restaurant with the world.</p>
+    </section>
     <main>
         <section id="add-restaurant-form">
             <h2>Enter Restaurant Details</h2>
@@ -32,6 +37,6 @@
             <button onclick="handleAddRestaurant()">Add Restaurant</button>
         </section>
     </main>
-    <script src="siteplan.js"></script>
+    <script src="scripts/siteplan.js"></script>
 </body>
 </html>
