@@ -10,13 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/siteplan.css">
-    <title>Favorite Restaurants</title>
+    <link rel="stylesheet" href="styles/contact.css">
+    <title>Contact Us</title>
     <script src="scripts/siteplan.js"></script>
 </head>
 <body>
     <header>
-        <div class="logo">🍽️ Favorite Restaurants</div>
+        <div class="logo">🍽️ Food Joint Finder</div>
         <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul class="nav-links">
@@ -27,14 +27,34 @@
         </nav>
     </header>
     <section class="hero">
-        <h1>Your Favorite Restaurants</h1>
-        <p>Here are the restaurants you have marked as favorites.</p>
+        <h1>Submit Your Favorite Food Places</h1>
+        <p>Share your favorite restaurant with the world.</p>
     </section>
     <main>
-        <section id="favorites-list">
-            <!-- Favorite restaurants will be dynamically inserted here -->
+        <section id="signup-form">
+            <h2>Sign Up for Alerts</h2>
+            <p>Get notified about new restaurant listings and exclusive deals.</p>
+            <form id="alertSignupForm">
+                <input type="text" id="userName" placeholder="Your Name" required>
+                <input type="email" id="userEmail" placeholder="Your Email" required>
+                <input type="tel" id="userPhone" placeholder="Your Phone Number" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+        
+        <section id="about-website">
+            <h2>About Food Joint Finder</h2>
+            <p>Food Joint Finder helps you discover the best restaurants around you. Save your favorites, rate them, and explore new places effortlessly.</p>
+        </section>
+        
+        <section id="contact-info">
+            <h2>Contact Us</h2>
+            <p><strong>Address:</strong> 123 Foodie Street, Culinary City, FC 45678</p>
+            <p><strong>Email:</strong> support@foodjointfinder.com</p>
+            <p><strong>Phone:</strong> +1 (555) 123-4567</p>
         </section>
     </main>
+    
     <footer>
         <p>&copy;<span id="currentyear"></span> Richard Buah | Food Joint Application</p>
         <p>This is a link to the wireframe. <a href="https://www.figma.com/design/LM8KWH6O8Vof1y0i2HJOjU/Workspace?node-id=0-1&p=f&t=XHe8V9trRVK5V2P4-0">Wireframe</a></p>

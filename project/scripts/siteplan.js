@@ -2,10 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeRestaurants();
     getUserLocation();
     setupAutocomplete();
+
     setTimeout(() => {
         displayRestaurants(getRestaurants());
         if (window.location.pathname.includes("favs.html")) {
-            loadFavorites();
+            loadFavorites(); 
         }
     }, 500);
 });
@@ -172,27 +173,37 @@ function getUserLocation() {
     }
 }
 
-function displayRestaurants(filteredList) {
-    const list = document.getElementById("restaurant-list");
-    if (!list) return;
+function filterRestaurants() {
+    let searchQuery = document.getElementById("searchBar").value.toLowerCase().trim();
+    let category = document.getElementById("categoryFilter").value;
+    let restaurants = getRestaurants();
 
-    list.innerHTML = "";
-    if (filteredList.length === 0) {
-        list.innerHTML = "<p style='text-align: center;'>No restaurants found.</p>";
+    if (!restaurants || restaurants.length === 0) {
+        console.error("No restaurant data found.");
         return;
     }
 
-    filteredList.forEach(restaurant => {
-        const div = document.createElement("div");
-        div.classList.add("restaurant-card");
-        div.innerHTML = `<h2>${restaurant.name}</h2>
-                         <p>Category: ${restaurant.category}</p>
-                         <p>Hours: ${restaurant.hours}</p>
-                         <p>Address: ${restaurant.address}</p>
-                         <p class="rating">⭐ ${restaurant.rating}</p>
-                         <button onclick="toggleFavorite('${restaurant.name}')">${isFavorite(restaurant.name) ? "❤️ Unfavorite" : "🤍 Favorite"}</button>`;
-        list.appendChild(div);
+    let filteredList = restaurants.filter(restaurant => {
+        let matchesCategory = category === "all" || restaurant.category.toLowerCase() === category.toLowerCase();
+        let matchesSearch = restaurant.name.toLowerCase().includes(searchQuery) ||
+                            (restaurant.category && restaurant.category.toLowerCase().includes(searchQuery)) ||
+                            (restaurant.address && restaurant.address.toLowerCase().includes(searchQuery));
+
+        return matchesCategory && matchesSearch;
     });
+
+    displayRestaurants(filteredList);
+}
+
+async function fetchAddress(lat, lon) {
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+        const data = await response.json();
+        return data.display_name || "Address not found";
+    } catch (error) {
+        console.error("Error fetching address:", error);
+        return "Address unavailable";
+    }
 }
 
 function toggleMenu() {
@@ -219,13 +230,26 @@ function loadFavorites() {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     let allRestaurants = getRestaurants();
     let favoriteRestaurants = allRestaurants.filter(restaurant => favorites.includes(restaurant.name));
-    
+
     const favoritesList = document.getElementById("favorites-list");
     if (!favoritesList) return;
-    
-    favoritesList.innerHTML = "";
+
+    favoritesList.innerHTML = ""; 
+
     if (favoriteRestaurants.length === 0) {
         favoritesList.innerHTML = "<p style='text-align: center;'>No favorite restaurants yet.</p>";
         return;
     }
+    favoriteRestaurants.forEach(restaurant => {
+        const div = document.createElement("div");
+        div.classList.add("restaurant-card");
+        div.innerHTML = `<h2>${restaurant.name}</h2>
+                         <p>Category: ${restaurant.category}</p>
+                         <p>Hours: ${restaurant.hours}</p>
+                         <p>Address: ${restaurant.address ? restaurant.address : 'Not Available'}</p>
+                         <p class="rating">⭐ ${restaurant.rating}</p>
+                         <button onclick="toggleFavorite('${restaurant.name}')">❤️ Remove</button>`;
+        favoritesList.appendChild(div);
+    });
 }
+

@@ -11,6 +11,44 @@ body {
 
 main {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#signup-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+#signup-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#signup-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#signup-form button:hover {
+    background-color: #45a049;
 }
 
 header {
@@ -83,20 +121,6 @@ header {
     .nav-links li {
         padding: 10px 0;
     }
-
-    .hero {
-        display: none;
-    }
-
-    .search-filter {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .restaurant-card {
-        max-width: 90%; 
-    }
 }
 
 .hero {
@@ -104,43 +128,6 @@ header {
     padding: 50px;
     background-color: #f8d7a3;
     font-size: 24px;
-    font-weight: bold;
-}
-
-.search-filter {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 20px;
-    background-color: #E9EDC9;
-}
-
-.search-filter input, .search-filter select {
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #CCD5AE;
-    border-radius: 5px;
-    background-color: white;
-}
-
-#restaurant-list, #favorites-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.restaurant-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.rating {
-    color: gold;
-    font-size: 18px;
     font-weight: bold;
 }
 
